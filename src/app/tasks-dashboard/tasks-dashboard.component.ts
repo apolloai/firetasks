@@ -71,7 +71,6 @@ export class TasksDashboardComponent implements OnInit {
    */
 
   drop(event: CdkDragDrop<Task[]>, listStatus: string) {
-
     if (event.previousContainer === event.container) {
       // handles the sorting within the same list
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -98,6 +97,25 @@ export class TasksDashboardComponent implements OnInit {
       this.loading = false;
     }).catch(console.error);
   }
+
+
+  /**
+   * BONUS Task Functions
+   * * ensure users can only update the status of a task they don't actually own
+   * * * owners of a task should still be able to update all fields of a task
+   *
+   * There are multiple ways to do this:
+   * 1. We can still allow the user to drag and drop the task to another list,
+   * but then prevent the dropper from actually changing the status of the task by
+   * checking the owner of the task and the current user in the drop event handler.
+   *
+   * 2. We can disable the drag and drop functionality for the task list that
+   * the user owns, by adding the cdkDropListDisabled directive
+   * to the task list in the template. This is the approach I took.
+   * [cdkDragDisabled]="user?.uid === task.owner.id"
+   * To further secure this, there has been a security rule added to the firestore.rules
+   */
+
 
 
 

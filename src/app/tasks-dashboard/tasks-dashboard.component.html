@@ -12,7 +12,13 @@
       </button>
     </div>
     <div class="list">
-      <mat-card *ngFor="let task of list.tasks" class="task-card" (click)="showTaskDetail(task)" cdkDrag>
+      <mat-card
+        *ngFor="let task of list.tasks"
+        class="task-card"
+        (click)="showTaskDetail(task)"
+        cdkDrag
+        [cdkDragDisabled]="user?.uid === task.owner.id"
+      >
         <mat-card-header>
           <mat-icon mat-card-avatar [color]="user?.uid == task.owner.id ? 'accent' : ''">assignment</mat-icon>
           <mat-card-title>{{ task.title }}</mat-card-title>
