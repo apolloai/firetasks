@@ -28,6 +28,7 @@ import { AppComponent } from './app.component';
 import { TasksDashboardComponent } from './tasks-dashboard/tasks-dashboard.component';
 import { TaskDialogComponent } from './tasks-dashboard/task-dialog.component';
 import { LoginComponent } from './auth/login.component';
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 @NgModule({
   declarations: [
@@ -36,43 +37,44 @@ import { LoginComponent } from './auth/login.component';
     TaskDialogComponent,
     LoginComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatCardModule,
-    MatChipsModule,
-    MatGridListModule,
-    MatIconModule,
-    MatButtonModule,
-    MatInputModule,
-    MatFormFieldModule,
-    LayoutModule,
-    FlexLayoutModule,
-    MatToolbarModule,
-    MatListModule,
-    MatDialogModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    // provideAuth(() => {
-    //   const auth = getAuth();
-    //   if (!environment.production) {
-    //     connectAuthEmulator(auth, 'http://localhost:4102');
-    //   }
-    //   return auth;
-    // }),
-    provideFirestore(() => {
-      const firestore = getFirestore();
-      if (!environment.production) {
-        connectFirestoreEmulator(firestore, 'localhost', 4103);
-      }
-      return firestore;
-    }),
-    EditableModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MatCardModule,
+        MatChipsModule,
+        MatGridListModule,
+        MatIconModule,
+        MatButtonModule,
+        MatInputModule,
+        MatFormFieldModule,
+        LayoutModule,
+        FlexLayoutModule,
+        MatToolbarModule,
+        MatListModule,
+        MatDialogModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireAuthModule,
+        provideFirebaseApp(() => initializeApp(environment.firebase)),
+        // provideAuth(() => {
+        //   const auth = getAuth();
+        //   if (!environment.production) {
+        //     connectAuthEmulator(auth, 'http://localhost:4102');
+        //   }
+        //   return auth;
+        // }),
+        provideFirestore(() => {
+            const firestore = getFirestore();
+            if (!environment.production) {
+                connectFirestoreEmulator(firestore, 'localhost', 4103);
+            }
+            return firestore;
+        }),
+        EditableModule,
+        DragDropModule,
+    ],
   providers: [
     { provide: USE_AUTH_EMULATOR, useValue: !environment.production ? ['http://localhost:4102'] : undefined },
   ],
