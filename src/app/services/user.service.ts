@@ -10,9 +10,7 @@ export class UserService {
 
   constructor(private firestore: Firestore) {}
 
-  subscribeToUsers() {
-    return collectionData(collection(this.firestore, 'users')).pipe(
-      map((data) => data.map((item) => item as User)),
-    );
-  }
+  readonly users$ = collectionData(collection(this.firestore, 'users')).pipe(
+    map((data) => data.map((item) => item as User)),
+  );
 }

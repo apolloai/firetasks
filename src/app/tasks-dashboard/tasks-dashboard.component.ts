@@ -20,11 +20,11 @@ export class TasksDashboardComponent implements OnInit {
     private dialog: MatDialog,
     private auth: AngularFireAuth,
     private taskService: TaskService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.auth.currentUser.then(user => this.user = user as any);
-    this.taskLists$ = this.taskService.subscribeToTasks();
+    this.taskLists$ = this.taskService.taskLists$;
   }
 
   async addNewTask(status: string) {

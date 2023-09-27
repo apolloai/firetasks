@@ -11,18 +11,14 @@ import { UserService } from '../services/user.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-  users$?: Observable<User[]>;
+  readonly users$ = this.userService.users$;
 
   constructor(
     private router: Router,
     private userService: UserService,
   ) {}
-
-  ngOnInit() {
-    this.users$ = this.userService.subscribeToUsers();
-  }
 
   async loginAs(user: User) {
     console.log('loginAs', user);

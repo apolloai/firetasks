@@ -21,21 +21,20 @@ export class TaskService {
 
   constructor(private firestore: Firestore) {}
 
-  subscribeToTasks() {
-    return collectionData(collection(this.firestore, 'tasks')).pipe(
-      map((data) => data.map((item) => TaskModel.fromFirestore(item))),
-      map((tasks) => groupBy(tasks, 'status')),
-      map((tasksByStatus) => mapValues(tasksByStatus, (tasks, status) => ({
-        ...this.getStatusInfo(status),
-        tasks,
-      })) as TasksGrouped),
-      map((tasksGrouped) => Object.values(tasksGrouped).sort((a, b) => a.order - b.order)),
-    );
-  }
+  readonly taskLists$ = collectionData(collection(this.firestore, 'tasks')).pipe(
+    map((data) => data.map((item) => TaskModel.fromFirestore(item))),
+    map((tasks) => groupBy(tasks, 'status')),
+    map((tasksByStatus) => mapValues(tasksByStatus, (tasks, status) => ({
+      ...this.getStatusInfo(status),
+      tasks,
+    })) as TasksGrouped),
+    map((tasksGrouped) => Object.values(tasksGrouped).sort((a, b) => a.order - b.order)),
+  );
+
 
   save(task: Task) {
     let taskRef = task.id ? doc(this.firestore, `tasks/${task.id}`) : doc(collection(this.firestore, 'tasks'));
-    task.id = task.id || taskRef.id;
+    task.id = task.id || taskRef.id;
     return setDoc(taskRef, task.toFirestore());
   }
 
