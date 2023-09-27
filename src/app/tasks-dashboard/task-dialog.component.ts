@@ -31,7 +31,7 @@ export class TaskDialogComponent implements OnInit {
     private taskService: TaskService,
   ) {
     this.taskForm = this.formBuilder.group({
-      title: [this.task.title || '', Validators.required],
+      title: [this.task.title || '', Validators.required],
       status: [this.task.status || TaskStatus.TODO, Validators.required],
     });
   }
