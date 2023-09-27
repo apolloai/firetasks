@@ -23,10 +23,18 @@ Additionally we want to extend the currently quite empty task detail page to add
 - drag & drop for tasks between status list on the task dashboard to update their status
   - all signed-in users should be allowed to change/move a task to another status list
   - the position within a list is irrelevant and does not need to be persisted
+  - ensure users can only update the status of a task they dont actually own
+    - owners of a task should still be able to update all fields of a task
 
 **BONUS:**
-- ensure users can only update the status of a task they dont actually own
-  - owners of a task should still be able to update all fields of a task
+- add activities to task detail dialog (only owner should be able to create or delete activities)
+  - simple CRUD functionality
+  - activity title should be editable inline (only the task owner can update the title)
+  - activity `isCompleted` flag should be toggle-able (everyone can toggle a task status)
+  - ability to assign someone to an activity (everyone can assign an user to an activity, but there can only be 1 user a assigned to one activity at a time)
+    - display avatar of assigned user next to the activity
+- add count non-completed activities as badge to each task that has activities at the task dashboard
+- create a new sub-site listing all activities assigned to the currently logged-in user
 
 ### Acceptance Criteria / Notes
 
