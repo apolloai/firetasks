@@ -1,5 +1,5 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { UntypedFormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { Component, Inject, OnDestroy, OnInit, inject } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Task, TaskStatus } from '@firetasks/models';
 import { TaskService } from '../services/task.service';
@@ -14,11 +14,14 @@ export interface DialogData {
   templateUrl: './task-dialog.component.html',
   styleUrls: ['./task-dialog.component.scss']
 })
-export class TaskDialogComponent implements OnInit {
+export class TaskDialogComponent {
 
   isLoading = false;
-  taskForm: UntypedFormGroup;
   task: Task = this.data.task;
+  readonly taskForm = inject(FormBuilder).nonNullable.group({
+    title: [this.task.title || '', Validators.required],
+    status: [this.task.status || TaskStatus.TODO, Validators.required],
+  });
 
   get isOwner() {
     return this.data.userId && this.data.userId === this.task.owner.id;
@@ -27,20 +30,8 @@ export class TaskDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: DialogData,
     private dialogRef: MatDialogRef<TaskDialogComponent>,
-    private formBuilder: UntypedFormBuilder,
     private taskService: TaskService,
-  ) {
-    this.taskForm = this.formBuilder.group({
-      title: [this.task.title || '', Validators.required],
-      status: [this.task.status || TaskStatus.TODO, Validators.required],
-    });
-  }
-
-  ngOnInit(): void {
-    // this.dialogRef.beforeClosed().subscribe(() => {
-    //   return this.save();
-    // });
-  }
+  ) { }
 
   save() {
     this.isLoading = true;
