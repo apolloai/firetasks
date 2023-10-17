@@ -11,7 +11,7 @@ service cloud.firestore {
       return userId() == existingData().owner.id;
     }
     function accessesField(field) {
-      return incomingData().diff(existingData()).affectedKeys().hasOnly([field]);
+      return incomingData().diff(existingData()).affectedKeys().hasAny([field]);
     }
 
     // [READ] Data that exists on the Firestore document
@@ -23,10 +23,14 @@ service cloud.firestore {
       return request.resource.data;
     }
 
+    function canUpdate() {
+      return isSignedIn() && (accessesField('status') ? !ownsItem() : ownsItem());
+    }
+
     match /tasks/{task} {
       allow read: if isSignedIn();
       allow create: if isSignedIn() && userId() == incomingData().owner.id;
-      allow update: if isSignedIn();
+      allow update: if canUpdate();
       allow delete: if isSignedIn() && ownsItem();
     }
 

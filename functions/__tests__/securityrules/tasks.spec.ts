@@ -116,10 +116,15 @@ describe('tasks collection', () => {
         db.doc('tasks/task-id').update({}),
     );
     await firebase.assertSucceeds(
-        db.doc('tasks/task-id').update({ status: TaskStatus.DONE }),
-    );
-    await firebase.assertSucceeds(
         db.doc('tasks/task-id').delete(),
+    );
+  });
+
+  it('owners should be not allowed to update status of task', async () => {
+    const db = initializeFirestoreTestAppWithUser(testUser1);
+
+    await firebase.assertFails(
+        db.doc('tasks/task-id').update({ status: TaskStatus.DONE }),
     );
   });
 });

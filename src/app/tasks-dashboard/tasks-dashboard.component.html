@@ -1,16 +1,30 @@
-<div class="list-container" *ngFor="let list of taskLists$ | async">
-  <div class="list-title" fxLayout="row" fxLayoutAlign="space-between">
-    <h2>{{ list.label }}</h2>
-    <button mat-mini-fab color="primary" (click)="addNewTask(list.status)">
-      <mat-icon>add</mat-icon>
-    </button>
-  </div>
-  <div class="list">
-    <mat-card *ngFor="let task of list.tasks" class="task-card" (click)="showTaskDetail(task)">
-      <mat-card-header>
-        <mat-icon mat-card-avatar [color]="user?.uid == task.owner.id ? 'accent' : ''">assignment</mat-icon>
-        <mat-card-title>{{ task.title }}</mat-card-title>
-      </mat-card-header>
-    </mat-card>
+<div cdkDropListGroup>
+
+  <div class="list-container" *ngFor="let list of taskLists$ | async"
+       cdkDropList
+       [cdkDropListData]="list.tasks"
+       (cdkDropListDropped)="drop($event, list.status)"
+  >
+    <div class="list-title" fxLayout="row" fxLayoutAlign="space-between">
+      <h2>{{ list.label }}</h2>
+      <button mat-mini-fab color="primary" (click)="addNewTask(list.status)">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <div class="list">
+      <mat-card
+        *ngFor="let task of list.tasks"
+        class="task-card"
+        (click)="showTaskDetail(task)"
+        cdkDrag
+        [cdkDragDisabled]="user?.uid === task.owner.id"
+      >
+        <mat-card-header>
+          <mat-icon mat-card-avatar [color]="user?.uid == task.owner.id ? 'accent' : ''">assignment</mat-icon>
+          <mat-card-title>{{ task.title }}</mat-card-title>
+        </mat-card-header>
+      </mat-card>
+    </div>
   </div>
 </div>
+
