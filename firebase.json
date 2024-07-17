@@ -58,7 +58,7 @@
     },
     "ui": {
       "port": 4100,
-      "enabled": true
+      "enabled": false
     }
   }
 }
