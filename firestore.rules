@@ -26,7 +26,7 @@ service cloud.firestore {
     match /tasks/{task} {
       allow read: if isSignedIn();
       allow create: if isSignedIn() && userId() == incomingData().owner.id;
-      allow update: if isSignedIn();
+      allow update: if isSignedIn() && ownsItem();
       allow delete: if isSignedIn() && ownsItem();
     }
 
