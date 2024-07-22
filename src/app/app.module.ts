@@ -13,7 +13,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatChipsModule } from '@angular/material/chips';
-import { EditableModule } from '@ngneat/edit-in-place';
+import { EditableComponent, EditModeDirective, ViewModeDirective } from '@ngneat/edit-in-place';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { USE_EMULATOR as USE_AUTH_EMULATOR } from '@angular/fire/compat/auth';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
@@ -56,6 +56,12 @@ import { LoginComponent } from './auth/login.component';
     MatDialogModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
+    EditableComponent,
+    EditModeDirective,
+    ViewModeDirective,
+  ],
+  providers: [
+    { provide: USE_AUTH_EMULATOR, useValue: !environment.production ? ['http://localhost:4102'] : undefined },
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     // provideAuth(() => {
     //   const auth = getAuth();
@@ -71,10 +77,6 @@ import { LoginComponent } from './auth/login.component';
       }
       return firestore;
     }),
-    EditableModule,
-  ],
-  providers: [
-    { provide: USE_AUTH_EMULATOR, useValue: !environment.production ? ['http://localhost:4102'] : undefined },
   ],
   bootstrap: [AppComponent]
 })
