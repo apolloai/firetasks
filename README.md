@@ -26,7 +26,7 @@ Additionally we want to extend the currently quite empty task detail page to add
   - ensure other users can only update the status of a task which they did not create
     - owners of a task should still be able to update all fields of a task
 
-**BONUS:**
+**BONUS/Optional:**
 - add activities to task detail dialog (only owner should be able to create or delete activities)
   - simple CRUD functionality
   - activity title should be editable inline (only the task owner can update the title)
