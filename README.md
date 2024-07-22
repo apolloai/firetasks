@@ -23,7 +23,7 @@ Additionally we want to extend the currently quite empty task detail page to add
 - drag & drop for tasks between status list on the task dashboard to update their status
   - all signed-in users should be allowed to change/move a task to another status list
   - the position within a list is irrelevant and does not need to be persisted
-  - ensure users can only update the status of a task they dont actually own
+  - ensure other users can only update the status of a task which they did not create
     - owners of a task should still be able to update all fields of a task
 
 **BONUS:**
@@ -46,7 +46,7 @@ Additionally we want to extend the currently quite empty task detail page to add
 
 ## Technology Stack
 
-- Angular 14.x
+- Angular 18.x
   - [Angular Material](https://material.angular.io/)
   - [Angular Fire](https://firebaseopensource.com/projects/angular/angularfire2/)
 - Firebase services
@@ -56,7 +56,7 @@ Additionally we want to extend the currently quite empty task detail page to add
 
 ## Prerequisites
 
-- Node v14.x (best use [nvm](https://github.com/nvm-sh/nvm))
+- Node v20.x (best use [nvm](https://github.com/nvm-sh/nvm))
 - Firebase CLI (`npm i -g firebase-tools`)
 - Yarn (`npm i -g yarn`)
 - Java (for local firebase emulators)
